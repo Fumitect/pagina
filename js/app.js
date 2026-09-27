@@ -1,14 +1,7 @@
-/* =========================================================
-   app.js — Funcionalidad de la página.
-   Todo arranca desde un callback registrado en el evento
-   DOMContentLoaded: cuando el HTML terminó de cargar, se
-   ejecuta init() y ésta inicializa cada módulo.
-   ========================================================= */
-
 "use strict";
 
 const CONFIG = {
-  whatsappNumber: "528131224125",   // 52 (México) + 81 3122 4125, sin espacios ni "+"
+  whatsappNumber: "528131224125",   
   scrolledOffset: 24,               // px bajados antes de darle fondo sólido al menú flotante
   splash: {
     target: ".header .logo__icon",  // a qué logo viaja (p. ej. ".scope__logo" para el del hero)
@@ -212,8 +205,8 @@ function initGallery() {
 
   items.forEach((item, i) => item.addEventListener("click", () => show(i)));
   closeBtn.addEventListener("click", hide);
-  prevBtn.addEventListener("click", () => go(-1));
-  nextBtn.addEventListener("click", () => go(1));
+  prevBtn.addEventListener("click", () => go(1));
+  nextBtn.addEventListener("click", () => go(-1));
   // Clic fuera de la foto cierra
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox || e.target === stage) hide();
