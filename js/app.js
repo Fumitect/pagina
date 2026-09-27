@@ -205,8 +205,8 @@ function initGallery() {
 
   items.forEach((item, i) => item.addEventListener("click", () => show(i)));
   closeBtn.addEventListener("click", hide);
-  prevBtn.addEventListener("click", () => go(1));
-  nextBtn.addEventListener("click", () => go(-1));
+  prevBtn.addEventListener("click", () => go(-1));
+  nextBtn.addEventListener("click", () => go(1));
   // Clic fuera de la foto cierra
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox || e.target === stage) hide();
@@ -214,8 +214,8 @@ function initGallery() {
   document.addEventListener("keydown", (e) => {
     if (lightbox.hidden) return;
     if (e.key === "Escape") hide();
-    if (e.key === "ArrowRight") go(-1);
-    if (e.key === "ArrowLeft") go(1);
+    if (e.key === "ArrowRight") go(1);
+    if (e.key === "ArrowLeft") go(-1);
   });
 
   // Deslizar con el dedo: la foto sigue la dirección del dedo
@@ -229,7 +229,7 @@ function initGallery() {
     if (startX === null) return;
     const dx = e.changedTouches[0].clientX - startX;
     const dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(dx > 0 ? 1 : -1);
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(dx > 0 ? -1 : 1);
     startX = null;
   });
 }
