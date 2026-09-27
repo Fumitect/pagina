@@ -1,17 +1,3 @@
-/* =========================================================
-   colors.css — ÚNICO lugar donde existen valores de color.
-   Ningún otro archivo (CSS, HTML o JS) debe tener un color
-   escrito directamente: todo se consume con var(--nombre).
-
-   Paleta tomada del logo y la tarjeta de FUMITECT:
-   rojo del logo, rojo del texto "TECT", negro, gris carbón
-   del reverso de la tarjeta, blanco hueso del aro del logo
-   y el amarillo de las franjas de advertencia.
-
-   Capa 1: PALETA  -> nombres "crudos" (--red, --white, ...)
-   Capa 2: ROLES   -> para qué se usa cada color en la app
-   ========================================================= */
-
 :root {
   /* ---------- Capa 1: paleta ---------- */
   --white:          #ffffff;
