@@ -1,0 +1,100 @@
+/* =========================================================
+   colors.css — ÚNICO lugar donde existen valores de color.
+   Ningún otro archivo (CSS, HTML o JS) debe tener un color
+   escrito directamente: todo se consume con var(--nombre).
+
+   Paleta tomada del logo y la tarjeta de FUMITECT:
+   rojo del logo, rojo del texto "TECT", negro, gris carbón
+   del reverso de la tarjeta, blanco hueso del aro del logo
+   y el amarillo de las franjas de advertencia.
+
+   Capa 1: PALETA  -> nombres "crudos" (--red, --white, ...)
+   Capa 2: ROLES   -> para qué se usa cada color en la app
+   ========================================================= */
+
+:root {
+  /* ---------- Capa 1: paleta ---------- */
+  --white:          #ffffff;
+  --white-bone:     #ececec;   /* aro claro del logo */
+  --gray-light:     #f5f5f5;
+  --gray-card:      #b2b5b5;   /* fondo de la tarjeta (frente) */
+  --gray:           #555555;   /* "Control de Plagas" */
+  --gray-dark:      #3a3a3a;
+  --charcoal:       #282828;   /* reverso de la tarjeta */
+  --charcoal-deep:  #1b1b1b;
+  --black:          #0e0e0e;   /* negro del logo */
+
+  --red:            #be1622;   /* texto "TECT" */
+  --red-logo:       #ae1a16;   /* relleno del logo */
+  --red-dark:       #8e1017;
+  --red-light:      #fbe9ea;
+
+  --yellow:         #f5c400;   /* franjas de advertencia */
+
+  --green-ok:       #1f9d55;   /* solo para mensajes de éxito */
+  --green-ok-light: #e7f6ed;
+  --whatsapp:       #25d366;
+
+  --transparent:    transparent;
+
+  /* Transparencias (también son color, por eso viven aquí) */
+  --black-a10:      rgba(14, 14, 14, 0.10);
+  --black-a25:      rgba(14, 14, 14, 0.25);
+  --black-a55:      rgba(14, 14, 14, 0.55);
+  --black-a80:      rgba(14, 14, 14, 0.80);
+  --black-a90:      rgba(14, 14, 14, 0.92);
+  --white-a06:      rgba(255, 255, 255, 0.06);
+  --white-a12:      rgba(255, 255, 255, 0.12);
+  --white-a70:      rgba(255, 255, 255, 0.72);
+  --red-a15:        rgba(190, 22, 34, 0.15);
+  --red-a35:        rgba(190, 22, 34, 0.35);
+
+  /* ---------- Capa 2: roles ---------- */
+  --color-primary:          var(--red);
+  --color-primary-dark:     var(--red-dark);
+  --color-primary-soft:     var(--red-light);
+  --color-primary-glow:     var(--red-a35);
+  --color-primary-tint:     var(--red-a15);
+  --color-brand-fill:       var(--red-logo);
+  --color-accent:           var(--yellow);
+
+  --color-bg:               var(--white);
+  --color-bg-alt:           var(--gray-light);
+  --color-bg-bone:          var(--white-bone);
+  --color-bg-dark:          var(--charcoal);
+  --color-bg-darker:        var(--charcoal-deep);
+  --color-bg-black:         var(--black);
+  --color-surface:          var(--white);
+  --color-surface-dark:     var(--gray-dark);
+  --color-border:           var(--white-bone);
+  --color-border-strong:    var(--gray-card);
+  --color-border-dark:      var(--white-a12);
+
+  --color-text:             var(--black);
+  --color-text-soft:        var(--gray);
+  --color-text-muted:       var(--gray);
+  --color-text-inverse:     var(--white);
+  --color-text-inverse-soft: var(--white-a70);
+
+  --color-header-bg:        var(--black-a90);
+  --color-footer-bg:        var(--black);
+  --color-overlay:          var(--black-a90);
+  --color-glass:            var(--white-a06);
+  --color-glass-strong:     var(--white-a12);
+
+  --color-error:            var(--red);
+  --color-error-soft:       var(--red-light);
+  --color-success:          var(--green-ok);
+  --color-success-soft:     var(--green-ok-light);
+
+  --color-shadow:           var(--black-a10);
+  --color-shadow-strong:    var(--black-a25);
+  --color-hero-shade:       var(--black-a80);
+  --color-shade-mid:        var(--black-a55);
+
+  --color-hazard-a:         var(--yellow);
+  --color-hazard-b:         var(--charcoal);
+
+  --color-whatsapp:         var(--whatsapp);
+  --color-transparent:      var(--transparent);
+}

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es" class="splash-active">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FUMITECT Control de Plagas: fumigación residencial y comercial. Detect · Correct · Protect. Cotiza al 81 3122 4125.">
+  <title>FUMITECT | Control de Plagas</title>
+
+  <!-- Google Fonts: Michroma (marca), Saira (títulos), Inter (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Michroma&family=Saira:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- colors.css SIEMPRE primero: define las variables que usa styles.css -->
+  <link rel="stylesheet" href="css/colors.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <!-- Marca que JS está activo: las animaciones solo esconden contenido si JS puede mostrarlo -->
+  <script>document.documentElement.classList.add("js");</script>
+  <!-- Sin JavaScript no hay animación de entrada: se oculta la pantalla de inicio -->
+  <noscript><style>.splash { display: none; } .splash-active .logo__icon { visibility: visible; }</style></noscript>
+</head>
+<body>
+
+  <!-- ===================== PANTALLA DE INICIO (splash) =====================
+       El logo aparece en grande y luego viaja hasta el logo del menú.
+       La animación está en js/app.js → initSplash(). -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__bg" id="splashBg"></div>
+    <div class="splash__stage">
+      <img class="splash__logo" id="splashLogo" src="img/icono.png" alt="" width="720" height="733">
+      <div class="splash__brand" id="splashBrand">
+        <img class="splash__wordmark" src="img/wordmark-blanco.png" alt="" width="520" height="66">
+        <p class="splash__tagline">Det<span>ect</span> <i>•</i> Corr<span>ect</span> <i>•</i> Prot<span>ect</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ÍCONOS SVG (se usan con <use href="#i-...">) ===================== -->
+  <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Plagas: trazo con currentColor, así toman el color del CSS -->
+      <symbol id="i-cucaracha" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 10c-2-4-6-6-10-6M28 10c2-4 6-6 10-6"/>
+        <ellipse cx="24" cy="12" rx="4.5" ry="3.5"/>
+        <path d="M24 16c-6.5 0-9 6-9 13s3.5 14 9 14 9-7 9-14-2.5-13-9-13z"/>
+        <path d="M24 17v25"/>
+        <path d="M15.5 22l-6-3-3 2M15 29H8l-3 4M16 36l-5 4-1 4M32.5 22l6-3 3 2M33 29h7l3 4M32 36l5 4 1 4"/>
+      </symbol>
+      <symbol id="i-roedor" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 30c0-7 6-12 14-12 5 0 8 1 11 3l7 2c2.5.7 4 2.5 4 4.5S40.5 31 38 31H14"/>
+        <circle cx="29.5" cy="17" r="4"/>
+        <circle cx="36" cy="25.5" r="1" fill="currentColor"/>
+        <path d="M14 31l-2 5M26 31l1 5M6 30c-2 1-3 4-1 7 2.5 3.5 8 3 12 5"/>
+        <path d="M42 27l4-1M42 29l4 1"/>
+      </symbol>
+      <symbol id="i-arana" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="15" r="4"/>
+        <ellipse cx="24" cy="28" rx="6.5" ry="8"/>
+        <path d="M20.5 13L14 6 8 8M27.5 13L34 6l6 2M18 24l-9-4-6 4M30 24l9-4 6 4M18 30l-9 3-4 7M30 30l9 3 4 7M20 35l-5 6v5M28 35l5 6v5"/>
+      </symbol>
+      <symbol id="i-hormiga" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="10" r="4"/>
+        <ellipse cx="24" cy="20.5" rx="3" ry="4"/>
+        <ellipse cx="24" cy="34" rx="6" ry="8"/>
+        <path d="M21.5 7l-4-5M26.5 7l4-5M21 19l-8-4-4 2M27 19l8-4 4 2M21.5 22l-9 3-4 5M26.5 22l9 3 4 5M21 26l-7 6-2 7M27 26l7 6 2 7"/>
+      </symbol>
+      <symbol id="i-termita" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 5l2 4M28 5l-2 4"/>
+        <rect x="19" y="8" width="10" height="9" rx="4.5"/>
+        <path d="M24 17c-4 0-6 3-6 7v10c0 5 2.5 9 6 9s6-4 6-9V24c0-4-2-7-6-7z"/>
+        <path d="M18 27h12M18 32h12M18.5 37h11"/>
+        <path d="M18.5 21l-7-3-3 3M29.5 21l7-3 3 3M18 26l-8 1-3 5M30 26l8 1 3 5M18 31l-6 5-1 5M30 31l6 5 1 5"/>
+      </symbol>
+      <symbol id="i-mosquito" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 13c-2 0-3 2-3 4s1 3 3 3 3-1 3-3-1-4-3-4z"/>
+        <path d="M24 13V3M24 20v19"/>
+        <path d="M22 22c-5-8-15-10-18-7s3 9 16 11M26 22c5-8 15-10 18-7s-3 9-16 11"/>
+        <path d="M21.5 24l-8 10-2 10M26.5 24l8 10 2 10M22 28l-6 14M26 28l6 14"/>
+      </symbol>
+
+      <!-- Servicios -->
+      <symbol id="i-casa" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 22L24 7l18 15"/><path d="M11 18v23h26V18"/><path d="M20 41V29h8v12"/>
+      </symbol>
+      <symbol id="i-tienda" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 18l4-10h28l4 10"/><path d="M6 18c0 3 2.5 5 5 5s4.5-2 4.5-5c0 3 2.5 5 4.5 5s4-2 4-5c0 3 2 5 4 5s4.5-2 4.5-5c0 3 2 5 4.5 5s5-2 5-5"/><path d="M9 23v18h30V23"/><path d="M20 41V31h8v10"/>
+      </symbol>
+      <symbol id="i-industria" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 41V22l10 6v-6l10 6v-6l10 6V8h7v33z"/><path d="M5 41h38"/><path d="M12 35h4M21 35h4M30 35h4"/>
+      </symbol>
+
+      <!-- Utilidades -->
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-tel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></symbol>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.8 11.9 11.9 0 004.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 001.8-1.3 2.2 2.2 0 00.2-1.3c-.1-.1-.2-.2-.5-.3z"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></symbol>
+      <symbol id="i-web" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></symbol>
+      <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.2A21 21 0 0014.6 2C12.2 2 10.6 3.5 10.6 6.2v2.3H8V12h2.6v10H14V12h2.7l.4-3.5z"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+      <symbol id="i-escudo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+      <symbol id="i-reloj" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+      <symbol id="i-hoja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c0-9 6-15 16-16-1 10-7 16-16 16z"/><path d="M4 20l8-8"/></symbol>
+      <symbol id="i-factura" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h6"/></symbol>
+      <symbol id="i-lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></symbol>
+      <symbol id="i-flecha-izq" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
+      <symbol id="i-flecha-der" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></symbol>
+      <symbol id="i-reticula" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"><circle cx="24" cy="24" r="17"/><path d="M24 2v9M24 37v9M2 24h9M37 24h9"/></symbol>
+      <symbol id="i-mira" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 1v5M12 18v5M1 12h5M18 12h5"/><path d="M9.5 9.5l5 5M14.5 9.5l-5 5"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== HEADER / MENÚ FLOTANTE ===================== -->
+  <div class="header" id="header">
+    <div class="container header__inner">
+      <a href="#inicio" class="logo" aria-label="FUMITECT, ir al inicio">
+        <img class="logo__icon" src="img/icono-sm.png" alt="" width="44" height="44">
+        <span class="logo__text">
+          <img class="logo__wordmark" src="img/wordmark-blanco.png" alt="FUMITECT" width="520" height="66">
+          <span class="logo__sub">Control de Plagas</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Menú principal">
+        <a href="#plagas" class="nav__link">Plagas</a>
+        <a href="#metodo" class="nav__link">Método</a>
+        <a href="#servicios" class="nav__link">Servicios</a>
+        <a href="#galeria" class="nav__link">Galería</a>
+        <a href="#cobertura" class="nav__link">Cobertura</a>
+        <a href="#faq" class="nav__link">FAQ</a>
+        <a href="#contacto" class="btn btn--primary btn--sm nav__cta">Cotizar gratis</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <div class="section hero" id="inicio">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <p class="eyebrow eyebrow--inverse"><span class="eyebrow__dot"></span>Control de plagas profesional</p>
+        <h1 class="hero__title">Tu espacio,<br><span class="hero__title-red">libre de plagas.</span></h1>
+        <p class="tagline">Det<span>ect</span> <i>•</i> Corr<span>ect</span> <i>•</i> Prot<span>ect</span></p>
+        <p class="hero__subtitle">Detectamos el origen, eliminamos la plaga y protegemos tu casa o negocio para que no regrese. Servicio residencial y comercial.</p>
+
+        <div class="hero__actions">
+          <a href="#contacto" class="btn btn--primary btn--lg">Solicitar visita</a>
+          <a href="tel:+528131224125" class="btn btn--outline-light btn--lg">
+            <svg class="icon" aria-hidden="true"><use href="#i-tel"/></svg> 81 3122 4125
+          </a>
+        </div>
+
+        <!-- EDITA estas cifras con los datos reales del negocio -->
+        <div class="stats">
+          <div class="stat">
+            <span class="stat__number stat__number--text">Inmediata</span>
+            <span class="stat__label">Respuesta</span>
+          </div>
+          <div class="stat">
+            <span class="stat__number" data-count="500" data-suffix="+">0</span>
+            <span class="stat__label">Servicios realizados</span>
+          </div>
+          <div class="stat">
+            <span class="stat__number stat__number--text">Garantizado</span>
+            <span class="stat__label">Servicio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="scope">
+          <span class="scope__ring scope__ring--outer"></span>
+          <span class="scope__ring scope__ring--dashed"></span>
+          <span class="scope__tick scope__tick--t"></span>
+          <span class="scope__tick scope__tick--r"></span>
+          <span class="scope__tick scope__tick--b"></span>
+          <span class="scope__tick scope__tick--l"></span>
+          <span class="scope__radar"></span>
+          <span class="scope__lock"></span>
+          <img class="scope__logo" src="img/icono.png" alt="" width="720" height="733">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hazard" aria-hidden="true"></div>
+
+  <!-- ===================== BENEFICIOS ===================== -->
+  <div class="benefits">
+    <div class="container benefits__list">
+      <div class="benefit"><svg class="benefit__icon" aria-hidden="true"><use href="#i-escudo"/></svg><span>Servicio con garantía</span></div>
+      <div class="benefit"><svg class="benefit__icon" aria-hidden="true"><use href="#i-reloj"/></svg><span>Respuesta inmediata</span></div>
+      <div class="benefit"><svg class="benefit__icon" aria-hidden="true"><use href="#i-hoja"/></svg><span>Productos seguros para familia y mascotas</span></div>
+    </div>
+  </div>
+
+  <!-- ===================== PLAGAS ===================== -->
+  <div class="section" id="plagas">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Plagas que controlamos</p>
+        <h2 class="section__title">Identificamos al enemigo <span class="text-red">antes de atacar</span></h2>
+        <p class="section__lead">Cada plaga necesita un tratamiento distinto. Por eso primero inspeccionamos y después aplicamos.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <div class="pest">
+          <div class="pest__target" aria-hidden="true">
+            <svg class="pest__icon"><use href="#i-cucaracha"/></svg>
+            <svg class="pest__scope"><use href="#i-reticula"/></svg>
+            <span class="pest__x"></span>
+          </div>
+          <h3 class="pest__title">Cucarachas</h3>
+          <p class="pest__meta">Americana y alemana</p>
+          <p class="pest__text">Se esconden en cocinas, drenajes y aparatos. Tratamiento con gel y aspersión en puntos de anidación.</p>
+        </div>
+        <div class="pest">
+          <div class="pest__target" aria-hidden="true">
+            <svg class="pest__icon"><use href="#i-roedor"/></svg>
+            <svg class="pest__scope"><use href="#i-reticula"/></svg>
+            <span class="pest__x"></span>
+          </div>
+          <h3 class="pest__title">Roedores</h3>
+          <p class="pest__meta">Ratas y ratones</p>
+          <p class="pest__text">Sellado de accesos, estaciones cebaderas y monitoreo para cortar la reinfestación.</p>
+        </div>
+        <div class="pest">
+          <div class="pest__target" aria-hidden="true">
+            <svg class="pest__icon"><use href="#i-arana"/></svg>
+            <svg class="pest__scope"><use href="#i-reticula"/></svg>
+            <span class="pest__x"></span>
+          </div>
+          <h3 class="pest__title">Arañas</h3>
+          <p class="pest__meta">Violinista, viuda negra y más</p>
+          <p class="pest__text">Control en perímetros, rincones y áreas de poco tránsito, sin olores molestos.</p>
+        </div>
+        <div class="pest">
+          <div class="pest__target" aria-hidden="true">
+            <svg class="pest__icon"><use href="#i-hormiga"/></svg>
+            <svg class="pest__scope"><use href="#i-reticula"/></svg>
+            <span class="pest__x"></span>
+          </div>
+          <h3 class="pest__title">Hormigas</h3>
+          <p class="pest__meta">Arrieras, de fuego y caseras</p>
+          <p class="pest__text">Atacamos la colonia completa, no solo las que ves, para que no vuelvan.</p>
+        </div>
+        <div class="pest">
+          <div class="pest__target" aria-hidden="true">
+            <svg class="pest__icon"><use href="#i-termita"/></svg>
+            <svg class="pest__scope"><use href="#i-reticula"/></svg>
+            <span class="pest__x"></span>
+          </div>
+          <h3 class="pest__title">Termitas</h3>
+          <p class="pest__meta">Subterráneas y de madera seca</p>
+          <p class="pest__text">Inspección de estructuras y tratamiento preventivo para proteger muebles y madera.</p>
+        </div>
+        <div class="pest">
+          <div class="pest__target" aria-hidden="true">
+            <svg class="pest__icon"><use href="#i-mosquito"/></svg>
+            <svg class="pest__scope"><use href="#i-reticula"/></svg>
+            <span class="pest__x"></span>
+          </div>
+          <h3 class="pest__title">Mosquitos y moscas</h3>
+          <p class="pest__meta">Voladores</p>
+          <p class="pest__text">Nebulización y eliminación de criaderos en patios, jardines y áreas comunes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÉTODO: DETECT · CORRECT · PROTECT ===================== -->
+  <div class="section section--dark" id="metodo">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow eyebrow--inverse">Nuestro método</p>
+        <h2 class="section__title section__title--inverse">Tres pasos. <span class="text-red">Cero plagas.</span></h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step__number">01</span>
+          <svg class="step__icon" aria-hidden="true"><use href="#i-lupa"/></svg>
+          <h3 class="step__title">Det<span>ect</span></h3>
+          <p class="step__subtitle">Detectamos</p>
+          <p class="step__text">Inspección para ubicar la plaga, su origen y el nivel de infestación.</p>
+        </div>
+        <div class="step">
+          <span class="step__number">02</span>
+          <svg class="step__icon" aria-hidden="true"><use href="#i-mira"/></svg>
+          <h3 class="step__title">Corr<span>ect</span></h3>
+          <p class="step__subtitle">Corregimos</p>
+          <p class="step__text">Aplicamos el tratamiento adecuado con productos autorizados y personal capacitado.</p>
+        </div>
+        <div class="step">
+          <span class="step__number">03</span>
+          <svg class="step__icon" aria-hidden="true"><use href="#i-escudo"/></svg>
+          <h3 class="step__title">Prot<span>ect</span></h3>
+          <p class="step__subtitle">Protegemos</p>
+          <p class="step__text">Barrera preventiva y seguimiento para que tu espacio se mantenga libre de plagas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SERVICIOS ===================== -->
+  <div class="section section--alt" id="servicios">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Servicios</p>
+        <h2 class="section__title">Soluciones para cada espacio</h2>
+      </div>
+
+      <div class="grid grid--services">
+        <div class="service service--featured">
+          <span class="badge">Más solicitado</span>
+          <svg class="service__icon" aria-hidden="true"><use href="#i-casa"/></svg>
+          <h3 class="service__title">Residencial</h3>
+          <p class="service__text">Casas y departamentos. Tratamientos seguros para niños y mascotas.</p>
+          <ul class="service__list">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Interior y exterior</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Jardín y cochera</li>
+          </ul>
+          <a href="#contacto" class="service__link" data-service="Residencial">Cotizar residencial →</a>
+        </div>
+        <div class="service">
+          <svg class="service__icon" aria-hidden="true"><use href="#i-tienda"/></svg>
+          <h3 class="service__title">Comercial</h3>
+          <p class="service__text">Restaurantes, hoteles, oficinas y locales. Cumplimiento de normas sanitarias.</p>
+          <ul class="service__list">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Constancia de servicio</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Horarios fuera de operación</li>
+          </ul>
+          <a href="#contacto" class="service__link" data-service="Comercial">Cotizar comercial →</a>
+        </div>
+        <!-- OCULTO: servicio industrial. Para mostrarlo quita el atributo "hidden"
+             aquí y en la opción "Industrial" del formulario. -->
+        <div class="service" hidden>
+          <svg class="service__icon" aria-hidden="true"><use href="#i-industria"/></svg>
+          <h3 class="service__title">Industrial</h3>
+          <p class="service__text">Plantas, bodegas y naves con programa de control y documentación completa.</p>
+          <ul class="service__list">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Bitácoras y reportes</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Listo para auditorías</li>
+          </ul>
+          <a href="#contacto" class="service__link" data-service="Industrial">Cotizar industrial →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== GALERÍA ===================== -->
+  <div class="section" id="galeria">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Galería</p>
+        <h2 class="section__title">Nuestro trabajo</h2>
+        <p class="section__lead">Toca una imagen para verla en grande.</p>
+      </div>
+
+      <!-- Para agregar fotos: copia la foto a img/ y duplica un <button class="gallery__item"> -->
+      <div class="gallery">
+        <button class="gallery__item" data-caption="Aplicación de polvo en coladera">
+          <img src="img/galeria-coladera.jpg" alt="Técnico de FUMITECT aplicando polvo insecticida en una coladera" loading="lazy" width="900" height="1200">
+          <span class="gallery__caption">Aplicación de polvo en coladera</span>
+        </button>
+        <button class="gallery__item" data-caption="Tratamiento en electrodomésticos">
+          <img src="img/galeria-electrodomestico.jpg" alt="Técnico de FUMITECT aplicando gel dentro de un electrodoméstico de cocina" loading="lazy" width="900" height="1200">
+          <span class="gallery__caption">Tratamiento en electrodomésticos</span>
+        </button>
+        <button class="gallery__item" data-caption="Aplicación bajo el fregadero">
+          <img src="img/galeria-fregadero.jpg" alt="Técnico de FUMITECT aplicando gel en la tubería bajo el fregadero" loading="lazy" width="900" height="1061">
+          <span class="gallery__caption">Aplicación bajo el fregadero</span>
+        </button>
+        <button class="gallery__item" data-caption="Estación para roedores en exterior">
+          <img src="img/galeria-estacion-exterior.jpg" alt="Técnico de FUMITECT colocando una estación para roedores junto a los medidores de agua" loading="lazy" width="900" height="1200">
+          <span class="gallery__caption">Estación para roedores en exterior</span>
+        </button>
+        <button class="gallery__item" data-caption="Tratamiento en gabinetes de cocina">
+          <img src="img/galeria-gabinete.jpg" alt="Técnico de FUMITECT aplicando tratamiento dentro de un gabinete de cocina" loading="lazy" width="900" height="1200">
+          <span class="gallery__caption">Tratamiento en gabinetes de cocina</span>
+        </button>
+        <button class="gallery__item" data-caption="Revisión de estación para roedores">
+          <img src="img/galeria-estacion-interior.jpg" alt="Técnico de FUMITECT revisando una estación para roedores en interior" loading="lazy" width="900" height="1200">
+          <span class="gallery__caption">Revisión de estación para roedores</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== COBERTURA ===================== -->
+  <div class="section section--bone" id="cobertura">
+    <div class="container coverage">
+      <div class="coverage__text">
+        <p class="eyebrow">Cobertura</p>
+        <h2 class="section__title">Llegamos a toda el área metropolitana</h2>
+        <p class="section__lead">¿No ves tu municipio? Escríbenos y lo revisamos.</p>
+        <a href="https://wa.me/528131224125" target="_blank" rel="noopener" class="btn btn--dark">
+          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Preguntar por mi zona
+        </a>
+      </div>
+      <!-- EDITA la lista de municipios -->
+      <ul class="chips">
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>Monterrey</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>San Nicolás</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>Guadalupe</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>San Pedro</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>Apodaca</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>Santa Catarina</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>Escobedo</li>
+        <li class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg>Juárez</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== FAQ ===================== -->
+  <div class="section" id="faq">
+    <div class="container container--narrow">
+      <div class="section__header">
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section__title">Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq" id="faqList">
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Los productos son seguros para niños y mascotas?
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__answer"><p>Sí. Usamos productos autorizados y te indicamos el tiempo de espera antes de volver a ocupar el área tratada.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Cuánto cuesta el servicio?
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__answer"><p>Depende del tamaño del lugar y del tipo de plaga.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿El servicio tiene garantía?
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__answer"><p>Sí. Te explicamos los términos de garantía al cotizar tu servicio.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Tengo que salir de mi casa durante la fumigación?
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__answer"><p>Depende del tratamiento. En la mayoría de los casos solo se desaloja el área tratada por unas horas; te lo indicamos antes de empezar.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" aria-expanded="false">
+            ¿Cada cuánto conviene fumigar?
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__answer"><p>Para casas, de forma preventiva cada 3 a 6 meses. Los negocios de alimentos suelen requerir un programa mensual.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== CONTACTO ===================== -->
+  <div class="section section--alt" id="contacto">
+    <div class="container contact">
+      <div class="contact__info">
+        <p class="eyebrow">Contacto</p>
+        <h2 class="section__title">Cotiza sin compromiso</h2>
+        <p class="section__lead">Llena el formulario y te enviamos el mensaje directo por WhatsApp, o contáctanos por el medio que prefieras.</p>
+
+        <a class="phone-big" href="tel:+528131224125" aria-label="Llamar al 81 3122 4125">
+          81<span>-</span>31<span>-</span>22<span>-</span>41<span>-</span>25
+        </a>
+
+        <ul class="contact__list">
+          <li><a class="contact__link" href="https://wa.me/528131224125" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</a></li>
+          <li><a class="contact__link" href="mailto:fumitect@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>fumitect@gmail.com</a></li>
+          <li><a class="contact__link" href="https://instagram.com/fumitect" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-instagram"/></svg>@fumitect</a></li>
+          <li><a class="contact__link" href="https://www.facebook.com/share/19qteYYDVY/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-facebook"/></svg>Facebook</a></li>
+        </ul>
+      </div>
+
+      <form class="form" id="contactForm" novalidate>
+        <h3 class="form__title">Solicita tu cotización</h3>
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="nombre">Nombre *</label>
+            <input class="form__input" type="text" id="nombre" name="nombre" autocomplete="name" required>
+            <span class="form__error" aria-live="polite"></span>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="telefono">Teléfono *</label>
+            <input class="form__input" type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="numeric" required>
+            <span class="form__error" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="correo">Correo</label>
+          <input class="form__input" type="email" id="correo" name="correo" autocomplete="email">
+          <span class="form__error" aria-live="polite"></span>
+        </div>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="servicio">Tipo de servicio *</label>
+            <select class="form__input" id="servicio" name="servicio" required>
+              <option value="">Selecciona…</option>
+              <option>Residencial</option>
+              <option>Comercial</option>
+              <option hidden disabled>Industrial</option>
+            </select>
+            <span class="form__error" aria-live="polite"></span>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="interes">Plaga principal</label>
+            <select class="form__input" id="interes" name="interes">
+              <option value="">Selecciona…</option>
+              <option>Cucarachas</option>
+              <option>Roedores</option>
+              <option>Arañas</option>
+              <option>Hormigas</option>
+              <option>Termitas</option>
+              <option>Mosquitos y moscas</option>
+              <option>Otra / no sé</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="municipio">Municipio *</label>
+            <!-- Las opciones se llenan solas con la lista de Cobertura (js/app.js → initMunicipios) -->
+            <select class="form__input" id="municipio" name="municipio" required>
+              <option value="">Selecciona…</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <span class="form__error" aria-live="polite"></span>
+          </div>
+          <div class="form__group" id="municipioOtroGroup" hidden>
+            <label class="form__label" for="municipioOtro">Escribe tu municipio *</label>
+            <input class="form__input" type="text" id="municipioOtro" name="municipioOtro" autocomplete="address-level2">
+            <span class="form__error" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="detalles">Detalles</label>
+          <textarea class="form__input form__textarea" id="detalles" name="detalles" rows="4" placeholder="¿Dónde la has visto? ¿Desde cuándo?"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">
+          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Enviar por WhatsApp
+        </button>
+        <p class="form__status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== CTA FINAL ===================== -->
+  <div class="hazard" aria-hidden="true"></div>
+  <div class="section cta">
+    <div class="container cta__inner">
+      <img class="cta__logo" src="img/icono-sm.png" alt="" width="96" height="96">
+      <h2 class="cta__title">Expertos en tu <span class="text-red">bienestar</span></h2>
+      <p class="tagline cta__tagline">Det<span>ect</span> <i>•</i> Corr<span>ect</span> <i>•</i> Prot<span>ect</span></p>
+      <div class="cta__actions">
+        <a href="tel:+528131224125" class="btn btn--primary"><svg class="icon" aria-hidden="true"><use href="#i-tel"/></svg> Llamar</a>
+        <a href="https://wa.me/528131224125" target="_blank" rel="noopener" class="btn btn--whatsapp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> WhatsApp</a>
+        <a href="#contacto" class="btn btn--outline-light">Formulario</a>
+      </div>
+    </div>
+  </div>
+  <div class="hazard" aria-hidden="true"></div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="img/logo-completo-blanco.png" alt="FUMITECT Control de Plagas. Detect, Correct, Protect." width="598" height="640" loading="lazy">
+      </div>
+      <nav class="footer__nav" aria-label="Menú del pie de página">
+        <p class="footer__heading">Navegación</p>
+        <a href="#plagas">Plagas</a>
+        <a href="#metodo">Método</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#galeria">Galería</a>
+        <a href="#cobertura">Cobertura</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="footer__contact">
+        <p class="footer__heading">Contacto</p>
+        <a href="tel:+528131224125">81 3122 4125</a>
+        <a href="mailto:fumitect@gmail.com">fumitect@gmail.com</a>
+        <div class="footer__social">
+          <a href="https://instagram.com/fumitect" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a href="https://www.facebook.com/share/19qteYYDVY/" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
+          <a href="https://wa.me/528131224125" target="_blank" rel="noopener" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span id="year"></span> FUMITECT Control de Plagas. Todos los derechos reservados.</p>
+      <p class="footer__tagline">Det<span>ect</span> • Corr<span>ect</span> • Prot<span>ect</span></p>
+    </div>
+  </div>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/528131224125" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+  </a>
+
+  <!-- Lightbox de la galería -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagen ampliada" hidden>
+    <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">×</button>
+    <div class="lightbox__stage" id="lightboxStage">
+      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Foto anterior">
+        <svg aria-hidden="true"><use href="#i-flecha-izq"/></svg>
+      </button>
+      <div class="lightbox__content" id="lightboxContent"></div>
+      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Foto siguiente">
+        <svg aria-hidden="true"><use href="#i-flecha-der"/></svg>
+      </button>
+    </div>
+    <p class="lightbox__caption" aria-live="polite">
+      <span id="lightboxCaption"></span>
+      <span class="lightbox__count" id="lightboxCount"></span>
+    </p>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
