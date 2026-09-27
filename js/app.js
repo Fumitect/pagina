@@ -192,10 +192,10 @@ function initGallery() {
     animating = true;
     const exit = oldMedia.animate(
       [{ transform: "translateX(0) scale(1)", opacity: 1 },
-       { transform: `translateX(${dir * 115}%) scale(0.92)`, opacity: 0 }],
+       { transform: `translateX(${-dir * 115}%) scale(0.92)`, opacity: 0 }],
       { ...SLIDE, fill: "forwards" });
     newMedia.animate(
-      [{ transform: `translateX(${-dir * 115}%) scale(0.92)`, opacity: 0 },
+      [{ transform: `translateX(${dir * 115}%) scale(0.92)`, opacity: 0 },
        { transform: "translateX(0) scale(1)", opacity: 1 }], SLIDE);
     exit.finished.then(() => {
       oldMedia.remove();
@@ -214,8 +214,8 @@ function initGallery() {
   document.addEventListener("keydown", (e) => {
     if (lightbox.hidden) return;
     if (e.key === "Escape") hide();
-    if (e.key === "ArrowRight") go(1);
-    if (e.key === "ArrowLeft") go(-1);
+    if (e.key === "ArrowRight") go(-1);
+    if (e.key === "ArrowLeft") go(1);
   });
 
   // Deslizar con el dedo: la foto sigue la dirección del dedo
