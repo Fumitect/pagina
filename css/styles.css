@@ -1,13 +1,3 @@
-/* =========================================================
-   styles.css — Estructura y estética de FUMITECT.
-   Reglas del proyecto:
-   · Cero colores escritos a mano: solo var(--...) de colors.css
-   · Tamaños y distancias en rem (relativos a la raíz) y em
-     (relativos al elemento). Media queries en em.
-   · Mobile-first: estilos base = celular; se amplían con
-     min-width.
-   ========================================================= */
-
 /* ---------- Tokens de tamaño y tipografía (no son colores) ---------- */
 :root {
   --font-brand:   "Michroma", "Saira", system-ui, sans-serif;   /* parecida a la letra del logo */
